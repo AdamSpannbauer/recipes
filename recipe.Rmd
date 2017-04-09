@@ -58,8 +58,8 @@ ingredients_all <- bind_rows(ingredients_b,
 
 # Sweet Potato Biscuits & Gravy
 
-* [Ingredients](#ingredients)
-* [Instructions](#instructions)
+* [Ingredients](#i-igredients)
+* [Instructions](#ii-instructions)
 
 ## I. Ingredients
 ### Biscuits
