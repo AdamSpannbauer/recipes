@@ -1,8 +1,8 @@
 Sweet Potato Biscuits & Gravy
 =============================
 
--   [Ingredients](#ingredients)
--   [Instructions](#instructions)
+-   [Ingredients](#i-ingredients)
+-   [Instructions](#ii-instructions)
 
 I. Ingredients
 --------------
