@@ -1,0 +1,111 @@
+---
+title: "Sweet Potato Biscuits & Gravy"
+author: "Adam Spannbauer"
+date: "4/9/2017"
+output: md_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, error = FALSE)
+```
+
+```{r}
+library(tidyverse)
+
+ingredients_b <- data_frame(
+  Dish       = "biscuit",
+  Ingredient = c("all purpose flour",
+                 "baking powder",
+                 "granulated sugar",
+                 "salt",
+                 "baking soda",
+                 "whole milk",
+                 "sweet potato",
+                 "unsalted butter",
+                 "heavy cream"),
+  Amount = c(2,1,1,.5,.25,.75,1,8,1),
+  Unit   = c("cup(s)","tbs","tbs","tsp","tsp","cup(s)","cup(s)","tbs","tbs"),
+  Notes  = c(NA,NA,NA,NA,NA,NA,
+             "1 medium sweet potato",
+             "1 stick frozen",
+             "just enough to brush tops")
+)
+ingredients_g <- data_frame(
+  Dish       = "gravy",
+  Ingredient = c("sausage",
+                 "unsalted butter",
+                 "all purpose flour",
+                 "maple syrup",
+                 "black pepper",
+                 "whole milk",
+                 "heavy cream"),
+  Amount = c(.5,2,2,2,2,.75,2),
+  Unit   = c("lbs","tbs","tbs","tbs","tsp","cup(s)","tbs"),
+  Notes  = c(NA,NA,NA,NA,NA,NA,NA)
+)
+ingredients_all <- bind_rows(ingredients_b,
+                             ingredients_g) %>% 
+  group_by(Ingredient, Unit) %>% 
+  summarise(Amount = sum(Amount)) %>% 
+  ungroup() %>% 
+  arrange(Unit) %>% 
+  group_by(Ingredient) %>% 
+  summarise(Amount = paste(format(Amount), collapse=" + "),
+            Unit = paste(Unit, collapse=" / ")) %>% 
+  select(Ingredient, Amount, Unit) %>% 
+  arrange(Unit)
+```
+
+# Sweet Potato Biscuits & Gravy
+
+* [Ingredients](#ingredients)
+* [Instructions](#instructions)
+
+## I. Ingredients
+### Biscuits
+```{r}
+ingredients_b %>% 
+  select(-Dish) %>% 
+  mutate(Amount = format(Amount)) %>% 
+  mutate(Notes  = ifelse(is.na(Notes), "", Notes)) %>% 
+  knitr::kable(align = c("l","r","l","l"))
+```
+
+### Gravy
+```{r}
+ingredients_g %>% 
+  select(-Dish) %>% 
+  mutate(Amount = format(Amount)) %>% 
+  mutate(Notes  = ifelse(is.na(Notes), "", Notes)) %>% 
+  knitr::kable(align = c("l","r","l","l"))
+```
+
+### Total
+```{r}
+knitr::kable(ingredients_all,
+             align = c("l","r","l"))
+```
+
+## II. Instructions
+### Biscuits
+1. Preheat oven to 400°F
+2. Combine 2 cups flour, 1 tbs baking powder, 1 tbs sugar, .5 tsp salt, & .25 tsp baking soda in large mixing bowl and set aside
+3. In separate large bowl, mix together .75 cups whole milk & mashed sweet potato until evenly combined
+4. Grate 1 stick frozen butter through large holes of box grater and toss with dry ingredients until butter is coated
+5. Add milk mixture to dry ingredients and mix lightly until dough forms a shaggy mass
+6. Turn out mixture onto floured surface and knead just until it comes together (~30 sec)
+7. Roll out dough to about 3/4 inch thick
+8. Using 3 inch biscuit cutter or glass cut dough into rounds
+9. Place biscuits on baking sheet
+10. Brush tops with heavy cream
+11. Bake until bottoms are golden brown (12-15 min)
+
+### Gravy
+1. Brown sausage over medium heat
+2. Pour off grease
+3. Add 2 tbs of butter to pan and stir until melted
+4. Sprinkle in 2 tbs of flour and cook, stirring constantly for 1 minute, being careful not to brown the flour
+5. Add 2 tbs maple syrup and 2 tsp pepper
+6. Slowly pour 3/4 cups whole milk into pan stirring constantly as gravy thickens
+7. Add 2 tbs heavy cream to thickened gravy and mix well
+8. Add salt & pepper to taste (usually don't need it)
